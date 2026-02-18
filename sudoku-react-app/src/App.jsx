@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import './App.css'
 
-import GameBoard from './components/GameBoard';
+import Board from './components/Board';
 
-const BOARD = [
+const INIT_BOARD = [
   [1, 2, 3, 4, 5, 6, 7, 8, 9],
   [4, 0, 0, 0, 0, 0, 0, 0, 0],
   [5, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -15,10 +16,19 @@ const BOARD = [
 ];
 
 function App() {
+  const [grid, setGrid] = useState(INIT_BOARD);
+
+  const updateCell = (row, col, value) => {
+    const newGrid = grid.map((r, i) => 
+      i === row ? r.map((c, j) => j === col ? value : c) : r
+    );
+    setGrid(newGrid);
+  };
+
   return (
     <div className="app-container">
       <h1 className='title'>Hello Sudoku</h1>
-      <GameBoard grid={BOARD} />
+      <Board grid={grid} updateCell={updateCell} />
     </div>
   );
 }

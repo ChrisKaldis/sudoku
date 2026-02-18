@@ -37,4 +37,9 @@
 
 .cell--filled {
   color: black;
-} 
+}
+
+.cell--selected {
+  background: #ffe9c0;
+  border: 1px solid #ffa600;
+}
