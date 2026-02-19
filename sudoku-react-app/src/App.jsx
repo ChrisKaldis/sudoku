@@ -17,18 +17,44 @@ const INIT_BOARD = [
 
 function App() {
   const [grid, setGrid] = useState(INIT_BOARD);
+  const [history, setHistory] = useState([INIT_BOARD]);
 
   const updateCell = (row, col, value) => {
     const newGrid = grid.map((r, i) => 
       i === row ? r.map((c, j) => j === col ? value : c) : r
     );
     setGrid(newGrid);
+    setHistory([...history, newGrid]);
+  };
+
+  const handleUndo = () => {
+    if (history.length > 1) {
+      const newHistory = history.slice(0, -1);
+      setHistory(newHistory);
+      setGrid(newHistory[newHistory.length - 1]);
+    }
+  };
+
+  const handleReset = () => {
+    setGrid(INIT_BOARD);
+    setHistory([INIT_BOARD]);
   };
 
   return (
     <div className="app-container">
-      <h1 className='title'>Hello Sudoku</h1>
-      <Board grid={grid} updateCell={updateCell} />
+      
+      <header>
+        <h1 className='title'>Hello Sudoku</h1>
+      </header>
+
+      <main>
+        <Board grid={grid} updateCell={updateCell} initBoard={INIT_BOARD} />
+        <div className="button-container">
+          <button className="btn" onClick={handleUndo}>Undo</button>
+          <button className="btn" onClick={handleReset}>Reset</button>
+        </div>
+      </main>
+
     </div>
   );
 }

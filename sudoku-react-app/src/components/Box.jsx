@@ -1,6 +1,6 @@
 import Cell from "./Cell";
 
-export default function Box({ boxIndex, cells, selectedCell, onCellSelect }) {
+export default function Box({ boxIndex, cells, selectedCell, onCellSelect, initBoard }) {
     return (
         <div id={`box-${boxIndex}`} className="box">
             {cells.map((value, cellIndex) => {
@@ -8,6 +8,7 @@ export default function Box({ boxIndex, cells, selectedCell, onCellSelect }) {
                 const col = (boxIndex % 3) * 3 + (cellIndex % 3);
                 
                 const isSelected = selectedCell?.row === row && selectedCell?.col === col;
+                const isInitial = initBoard && initBoard[row][col] !== 0;
 
                 return (
                     <Cell
@@ -17,6 +18,7 @@ export default function Box({ boxIndex, cells, selectedCell, onCellSelect }) {
                         value={value}
                         isSelected={isSelected}
                         onSelect={() => onCellSelect({ row, col })}
+                        isInitial={isInitial}
                     />
                 );
             })}

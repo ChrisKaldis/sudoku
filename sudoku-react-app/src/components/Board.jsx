@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Box from './Box';
 
-function GameBoard({ grid, updateCell }) {
+function GameBoard({ grid, updateCell, initBoard }) {
     const [selectedCell, setSelectedCell] = useState(null);
 
     useEffect(() => {
@@ -60,7 +60,8 @@ function GameBoard({ grid, updateCell }) {
                     boxIndex={boxIndex} 
                     cells={cells} 
                     selectedCell={selectedCell} 
-                    onCellSelect={setSelectedCell} 
+                    onCellSelect={setSelectedCell}
+                    initBoard={initBoard}
                 />
             ))}
         </div>
